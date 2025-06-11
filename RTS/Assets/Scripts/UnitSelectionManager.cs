@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEngine.GraphicsBuffer;
 
 public class UnitSelectionManager : MonoBehaviour
 {
@@ -14,6 +15,8 @@ public class UnitSelectionManager : MonoBehaviour
     public GameObject groundMarker;
     private Camera cam;
 
+    public LayerMask attackable;
+    public bool attackCursorVisible;
 
     private void Awake()
     {
@@ -44,7 +47,7 @@ public class UnitSelectionManager : MonoBehaviour
             // If We Are Hitting A Clickable Object
             if (Physics.Raycast(ray, out hit, Mathf.Infinity, clickable))
             {
-                if(Input.GetKey(KeyCode.LeftShift))
+                if (Input.GetKey(KeyCode.LeftShift))
                 {
                     MultiSelect(hit.collider.gameObject);
                 }
@@ -77,6 +80,51 @@ public class UnitSelectionManager : MonoBehaviour
                 groundMarker.SetActive(true);
             }
         }
+
+        // Attack Target
+
+        if (unitsSelected.Count > 0 && AtleastOneOffensiveUnit())
+        {
+            RaycastHit hit;
+            Ray ray = cam.ScreenPointToRay(Input.mousePosition);
+
+            // If We Are Hitting A Clickable Object
+            if (Physics.Raycast(ray, out hit, Mathf.Infinity, attackable))
+            {
+                Debug.Log("Enemy Hovered With Mouse");
+
+                attackCursorVisible = true;
+
+                if(Input.GetMouseButtonDown(1))
+                {
+                    Transform target = hit.transform;
+
+                    foreach(GameObject unit in unitsSelected)
+                    {
+                        if(unit.GetComponent<AttackController>())
+                        {
+                            unit.GetComponent<AttackController>().targetToAttack = target;
+                        }
+                    }
+                }
+            }
+        }
+        else
+        {
+            attackCursorVisible = false;
+        }
+    }
+
+    private bool AtleastOneOffensiveUnit()
+    {
+        foreach (GameObject unit in unitsSelected)
+        {
+            if (unit.GetComponent<AttackController>())
+            {
+                return true;
+            }
+        }
+        return false;
     }
 
     private void MultiSelect(GameObject unit)
