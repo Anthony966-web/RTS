@@ -28,7 +28,7 @@ public class UnitAttackState : StateMachineBehaviour
         {
             LookAtTarget();
 
-            agent.SetDestination(attackController.targetToAttack.position);
+            //agent.SetDestination(attackController.targetToAttack.position);
 
             if (attackTimer <= 0)
             {
@@ -43,8 +43,12 @@ public class UnitAttackState : StateMachineBehaviour
             float distanceFromTarget = Vector3.Distance(attackController.targetToAttack.position, animator.transform.position);
             if (distanceFromTarget > stopAttackingDistance || attackController.targetToAttack == null)
             {
-                animator.SetBool("isAttacking", false); // Moce To Attacking State
+                animator.SetBool("isAttacking", false); // Move To Follow State
             }
+        }
+        else
+        {
+            animator.SetBool("isAttacking", false); // Move To Follow State
         }
     }
 
@@ -66,8 +70,8 @@ public class UnitAttackState : StateMachineBehaviour
     }
 
     // OnStateExit is called when a transition ends and the state machine finishes evaluating this state
-    override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
-    {
+    //override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
+    //{
 
-    }
+    //}
 }

@@ -173,7 +173,7 @@ public class UnitSelectionManager : MonoBehaviour
 
     private void TriggerSelectionIndicator(GameObject unit, bool trigger)
     {
-        unit.transform.GetChild(0).gameObject.SetActive(trigger);
+        unit.transform.Find("Indicator").gameObject.SetActive(trigger);
     }
 
     internal void DragSelect(GameObject unit)

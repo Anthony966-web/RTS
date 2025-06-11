@@ -34,5 +34,6 @@ public class Unit : MonoBehaviour
     public void TakeDamage(float damageToInflict)
     {
         unitHealth -= damageToInflict;
+        UpdateHealth();
     }
 }
