@@ -83,7 +83,7 @@ public class UnitSelectionManager : MonoBehaviour
 
         // Attack Target
 
-        if (unitsSelected.Count > 0 && AtleastOneOffensiveUnit())
+        if (unitsSelected.Count > 0 && AtleastOneOffensiveUnit(unitsSelected))
         {
             RaycastHit hit;
             Ray ray = cam.ScreenPointToRay(Input.mousePosition);
@@ -113,9 +113,39 @@ public class UnitSelectionManager : MonoBehaviour
         {
             attackCursorVisible = false;
         }
+
+        CursorSelector();
     }
 
-    private bool AtleastOneOffensiveUnit()
+    void CursorSelector()
+    {
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        RaycastHit hit;
+
+        if(Physics.Raycast(ray, out hit, Mathf.Infinity, clickable))
+        {
+            CursorManager.Instance.SetMarkerType(CursorManager.CursorType.Selectable);
+        }
+        else if (Physics.Raycast(ray, out hit, Mathf.Infinity, attackable)
+            && unitsSelected.Count > 0 && AtleastOneOffensiveUnit(unitsSelected))
+        {
+            CursorManager.Instance.SetMarkerType(CursorManager.CursorType.Attackable);
+        }
+        else if (Physics.Raycast(ray, out hit, Mathf.Infinity, ground) && unitsSelected.Count > 0)
+        {
+            print("Works1");
+            CursorManager.Instance.SetMarkerType(CursorManager.CursorType.Walkable);
+        }
+        else
+        {
+            CursorManager.Instance.SetMarkerType(CursorManager.CursorType.None);
+        }
+
+    }
+
+
+
+    private bool AtleastOneOffensiveUnit(List<GameObject> unitsSelected)
     {
         foreach (GameObject unit in unitsSelected)
         {
