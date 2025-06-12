@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 1392816094637314578}
   - component: {fileID: 8172077400024498807}
   - component: {fileID: 4046131444775069512}
-  - component: {fileID: 8787673439603930298}
+  - component: {fileID: 638834252704150357}
   - component: {fileID: 4108425356202416263}
   - component: {fileID: 3625013450343285998}
   - component: {fileID: 172909610519937711}
@@ -174,7 +174,7 @@ MonoBehaviour:
   unitHealth: 0
   unitMaxHealth: 100
   healthTracker: {fileID: 8901087560979091203}
---- !u!114 &8787673439603930298
+--- !u!114 &638834252704150357
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -190,7 +190,7 @@ MonoBehaviour:
   idleStateMaterial: {fileID: 2100000, guid: 65deb2495b8be8444a5c6c09528e44d5, type: 2}
   followStateMaterial: {fileID: 2100000, guid: 995857dea5063394682863df1df03dbe, type: 2}
   attackStateMaterial: {fileID: 2100000, guid: 22868dabcb564564daf6a78e85cb40e5, type: 2}
-  unitDamage: 10
+  unitDamage: 1
   isPlayer: 1
 --- !u!95 &4108425356202416263
 Animator:
